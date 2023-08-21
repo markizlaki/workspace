@@ -64,7 +64,7 @@ fieldset {
 }
 
 .visually-hidden {
-    position: fixed;
+    position: fixe;
     transform: scale(0);
 }
 
