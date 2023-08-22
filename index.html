@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workspace</title>
 
-    <link rel="preload" href="fonts/inter-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="index.css">
 
-    <link rel="stylesheet" href="style/normalize.css">
-    <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="style/header.css">
+    <script src="js/choices.min.js" defer></script>
+    <script src="js/script.js" defer></script> 
 </head>
+
 <body>
     <header class="header">
         <div class="container header__container">
@@ -31,11 +32,12 @@
 
         <div class="vacancies" id="vacancies">
             <div class="container vacancies__container">
+                <button class="vacancies__filter-btn">Фильтр</button>
                 <section class="vacancies__filter filter">
-                    <h2 class="filter_title">Фильтр</h2>
+                    <h2 class="filter__title">Фильтр</h2>
 
                     <form class="filter__form">
-                        <fieldset class="filter_fieldset">
+                        <fieldset class="filter__fieldset">
                             <legend class="filter__legend">Город</legend>
 
                             <select class="filter__select" name="city" id="city">
@@ -46,7 +48,7 @@
                             </select>
                         </fieldset>
                         
-                        <fieldset class="filter_fieldset">
+                        <fieldset class="filter__fieldset">
                             <legend class="filter__legend">Заработная плата</legend>
 
                             <div class="filter__range">
@@ -56,7 +58,7 @@
                         </fieldset>
 
                         <div class="filter__checkboxes">
-                            <fieldset class="filter_fieldset">
+                            <fieldset class="filter__fieldset">
                                 <legend class="filter__legend">Формат</legend>
 
                                 <label class="filter__label checkbox">
@@ -73,7 +75,7 @@
 
                             </fieldset>
 
-                            <fieldset class="filter_fieldset">
+                            <fieldset class="filter__fieldset">
                                 <legend class="filter__legend">Опыт работы</legend>
 
                                 <label class="filter__label checkbox">
@@ -93,7 +95,7 @@
                                 </label>
                             </fieldset>
 
-                            <fieldset class="filter_fieldset">
+                            <fieldset class="filter__fieldset">
                                 <legend class="filter__legend">Занятость</legend>
 
                                 <label class="filter__label checkbox">
@@ -186,7 +188,7 @@
 
             <p class="footer__copyright">© Work Space, 2023</p>
 
-            <ul class="fotter__contacts">
+            <ul class="footer__contacts">
                 <li class="footer__contact">Designer:
                     <a class="footer__link" href="#">Anastasia Ilina</a>
                 </li>
