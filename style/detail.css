@@ -1,7 +1,7 @@
 .detail {
     max-width: 780px;
     border-radius: 16px;
-    box-shadow: 0px 10px 50px 0px rgba(4, 0, 49, 0.1);
+    box-shadow: 0px 10px 50px 0px rgba(4, 0, 49, 0.10);
     background-color: #fff;
     padding: 36px 36px 80px;
 }
@@ -14,7 +14,7 @@
 }
 
 .detail__logo {
-    height: 100%;
+    width: 100%;
     max-height: 101px;
     grid-row: 1 / 3;
     align-self: center;
@@ -59,9 +59,10 @@
 .detail__field {
     padding: 3px 10px;
     border-radius: 30px;
-    background-color: #eaecff;                                                                                                                                                                                                                                                                                                                                  
+    background-color: #eaecff;
 }
 
 .detail__resume {
     line-height: 1.4;
 }
+
