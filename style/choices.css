@@ -9,10 +9,6 @@
     border: 0;
 }
 
-.choices__item {
-    padding: 2px;
-}
-
 .choices__list--single {
     padding: 0px;
 }

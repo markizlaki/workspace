@@ -1,6 +1,7 @@
 const API_URL = "https://workspace-methed.vercel.app/";
 const LOCATION_URL = "api/locations";
 const VACANCY_URL = "api/vacancy";
+const BOT_TOKEN = '6440412139:AAEyLd4bYckjF6rgVun-57v8-qoJncJQmpA';
 
 const cardsList = document.querySelector(".cards__list");
 let lastUrl = "";
@@ -116,12 +117,41 @@ const createDetailVacancy = ({
                 <li class="detail__field">${location}</li>
             </ul>
         </div>
-        <p class="detail__resume">Отправляйте резюме на 
-            <a class="blue-text" 
-            href="mailto:${email}">${email}</a>
-        </p>
+
+
+        ${isNaN(parseInt(id.slice(-1))) ?
+            `
+                <p class="detail__resume">Отправляйте резюме на 
+                    <a class="blue-text" href="mailto:${email}">${email}</a>
+            </p>
+            ` :
+            `<form class="detail__tg">
+            <input class="detail__input" type="text" name="message" placeholder="Напишите свой email для отклика">
+            <input name="vacancyId" type="hidden" value="${id}">
+            <button class="detail__btn">Отправить</button>
+            </form>`
+        }
+        
     </article>
 `;
+
+const sendTelegram = (modal) => {
+    modal.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const form = e.target.closest('.detail__tg');
+        
+        const userId = '480363352';
+
+        const text = `Отклик на вакансию ${form.vacancyId.value}, email: ${form.message.value}`;
+        const urlBot = 
+        `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${userId}&text=${text}`;
+
+        fetch(urlBot).then(res => alert('Успешно отправлено')).catch(err => {
+            alert('Ошибка');
+            console.log(err);
+    });
+});
+};
 
 const renderModal = (data) =>{
     const modal = document.createElement('div');
@@ -150,6 +180,8 @@ const renderModal = (data) =>{
             modal.remove();
         }
     });
+
+    sendTelegram(modal);;
 };
 
 const openModal = (id) => {
@@ -169,13 +201,60 @@ const observer = new IntersectionObserver(
     },
 );
 
+const openFilter = (btn, dropDown, classNameBtn, classNameDd) => {
+    dropDown.style.height = `${dropDown.scrollHeight}px`;
+    btn.classList.add(classNameBtn);
+    dropDown.classList.add(classNameDd);
+};
+
+const closeFilter = (btn, dropDown, classNameBtn, classNameDd) => {
+    btn.classList.remove(classNameBtn);
+    dropDown.classList.remove(classNameDd);
+    dropDown.style.height = "";
+};
+
 const init = () => {
     const filterForm = document.querySelector('.filter__form');
+    const vacanciesFilterBtn = document.querySelector('.vacancies__filter-btn');
+    const vacanciesFilter = document.querySelector('.vacancies__filter');
+
+    vacanciesFilterBtn.addEventListener('click', () => {
+        if (vacanciesFilterBtn.classList.contains('vacancies__filter-btn_active')) {
+            closeFilter(
+                vacanciesFilterBtn,
+                vacanciesFilter,
+                'vacancies__filter-btn_active',
+                'vacancies__filter_active',
+            );
+        } else {
+            openFilter(
+                vacanciesFilterBtn,
+                vacanciesFilter,
+                'vacancies__filter-btn_active',
+                'vacancies__filter_active',
+            );
+        };
+    });
+
+    window.addEventListener('resize', () => {
+        if (vacanciesFilterBtn.classList.contains('vacancies__filter-btn_active')) {
+            // 1)
+            // vacanciesFilter.style.height = `${vacanciesFilter.scrollHeight}px`;
+            // 2)
+            closeFilter(
+                vacanciesFilterBtn,
+                vacanciesFilter,
+                'vacancies__filter-btn_active',
+                'vacancies__filter_active',
+            );
+        }
+    });
 
     // select city
     const citySelect = document.querySelector('#city');
     const cityChoices = new Choices(citySelect, {
     itemSelectText: "",
+    searchEnabled: false,
 });
 
     getData(
@@ -212,6 +291,15 @@ const init = () => {
         }
     });
 
+    cardsList.addEventListener('keydown', ({code, target}) => {
+        const vacancyCard = target.closest('.vacancy');
+        if ((code === 'Enter' || code === 'NumpadEnter') && vacancyCard) {
+            const vacancyId = vacancyCard.dataset.id;
+            openModal(vacancyId);
+            target.blur();
+        }
+    });
+
     //filter
 
     filterForm.addEventListener('submit', (event) => {
@@ -226,6 +314,13 @@ const init = () => {
 
         getData(urlWithParam, renderVacancies, renderError).then(() => {
             lastUrl = urlWithParam;
+        }).then(() => {
+            closeFilter(
+                vacanciesFilterBtn,
+                vacanciesFilter,
+                'vacancies__filter-btn_active',
+                'vacancies__filter_active',
+            );
         });
     });
 };
