@@ -52,6 +52,9 @@ const renderVacancies = (data) => {
     if (data.pagination) {
         Object.assign(pagination, data.pagination);
     }
+    if (cardsList.lastElementChild === null) {
+        cardsList.innerHTML = `<p>Вакансий не найдено. Измените фильтр поиска</p>`;
+    };
 
     observer.observe(cardsList.lastElementChild);
 };
@@ -63,6 +66,9 @@ const renderMoreVacancies = (data) => {
     if (data.pagination) {
         Object.assign(pagination, data.pagination);
     }
+    if (cardsList.lastElementChild === null) {
+        cardsList.innerHTML = `<p>Вакансий не найдено. Измените фильтр поиска</p>`;
+    };
 
     observer.observe(cardsList.lastElementChild);
 };
@@ -253,9 +259,9 @@ const init = () => {
     // select city
     const citySelect = document.querySelector('#city');
     const cityChoices = new Choices(citySelect, {
-    itemSelectText: "",
+    itemSelectText: "Нажмите, чтобы выбрать",
     searchEnabled: false,
-});
+    });
 
     getData(
         `${API_URL}${LOCATION_URL}`,
@@ -263,8 +269,21 @@ const init = () => {
             const locations = locationData.map((location) => ({
                 value: location,
             }));
-            cityChoices.setChoices(locations, 'value', 'label', false);
+            cityChoices.setChoices(locations, 'value', 'label', true);
         },
+
+        filterForm.addEventListener('reset', () => {
+            const placeholderDefault = document.querySelector("div.choices__item");
+                placeholderDefault.innerHTML=cityChoices._placeholderValue;
+                placeholderDefault.setAttribute("data-value", cityChoices._placeholderValue);
+                placeholderDefault.setAttribute("data-id","1");
+                placeholderDefault.classList.add("choices__placeholder");
+        
+            getData(urlWithParams, renderVacancies, renderError).then(() => {
+                lastUrl = urlWithParams;
+            });
+        }),
+
         (err) => {
             console.log(err);
         },
@@ -307,13 +326,13 @@ const init = () => {
         const formData = new FormData(filterForm);
 
         const urlWithParam = new URL(`${API_URL}${VACANCY_URL}`);
-
+        
         formData.forEach((value, key) => {
             urlWithParam.searchParams.append(key, value);
         });
 
         getData(urlWithParam, renderVacancies, renderError).then(() => {
-            lastUrl = urlWithParam;
+            lastUrl = urlWithParams;
         }).then(() => {
             closeFilter(
                 vacanciesFilterBtn,
