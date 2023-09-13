@@ -261,6 +261,7 @@ const init = () => {
     const cityChoices = new Choices(citySelect, {
     itemSelectText: "Нажмите, чтобы выбрать",
     searchEnabled: false,
+    position: "bottom",
     });
 
     getData(

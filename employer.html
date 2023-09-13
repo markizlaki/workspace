@@ -15,9 +15,11 @@
 <body>
     <header class="header">
         <div class="container header__container">
-            <img class="header__logo" src="img/logo.svg" alt="Логотип WorkSpace">
+            <a href="index.html">
+                <img class="header__logo" src="img/logo.svg" alt="Логотип WorkSpace">
+            </a>
 
-            <a href="index.html" class="header__link">Посмотреть вакансии</a>
+            <a class="header__link" href="index.html#vacancies">Посмотреть вакансии</a>
         </div>
     </header>
     
@@ -29,17 +31,17 @@
                 <form class="employer__form">
                     <div class="employer__file file">
                         <div class="file__wrap-preview">
-                            <img class="file__preview" src="#">
+                            <img class="file__preview" src="">
                         </div>
                         
                         <div class="file__wrap-btn">
                             <label class="file__label" for="logo">+ загрузить лого</label>
                             <input class="file__input" type="file" id="logo" name="logo" 
-                                accept="image/png, image/jpeg">
+                                accept="image/png, image/jpeg" required>
                         </div>
                     </div>
 
-                    <fieldset class="employer__fieldset-input">
+                    <fieldset class="employer__fieldset employer__fieldset_input">
                         <div class="employer__wrap-input">
                             <label class="employer__label" for="company">Название компании</label>
                             <input class="employer__input" type="text" id="company" name="company" 
@@ -67,7 +69,7 @@
                         </div>
                     </fieldset>
 
-                    <fieldset class="employer__fieldset-textarea">
+                    <fieldset class="employer__fieldset">
                         <label class="employer__label" for="description">Описание вакансии</label>
                         <textarea class="employer__textarea" name="description" 
                             id="description" 
