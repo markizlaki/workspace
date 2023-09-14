@@ -393,11 +393,7 @@ const init = () => {
                     rule: 'required',
                     errorMessage: 'Заполните название компании',
                 },
-            ],
-            {
-            
-            },
-            )
+            ])
             .addField("#title", [
                 {
                     rule: 'required',
