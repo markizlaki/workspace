@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workspace - add vacancy</title>
-
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <link rel="stylesheet" href="index.css">
 
-    <!-- <script src="js/just-validate.min.js" defer></script> -->
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
     <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
     <script src="js/script.js" defer></script> 
 </head>
@@ -33,7 +33,7 @@
                 <form class="employer__form">
                     <div class="employer__file file">
                         <div class="file__wrap-preview">
-                            <img class="file__preview" src="#">
+                            <img class="file__preview" src="">
                         </div>
                         
                         <div class="file__wrap-btn">
@@ -135,9 +135,8 @@
 
                     <div class="employer__wrap-submit">
                         <button class="employer__submit" type="submit">Добавить вакансию</button>
-                        <div class="employer__error">
-                            
-                        </div>
+                        <div class="employer__error"></div>
+                        <div class="employer__success"></div>
                     </div>
                 </form>
             </div>

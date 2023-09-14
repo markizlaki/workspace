@@ -36,6 +36,19 @@ const createCard = (vacancy) => `
     </article>
 `;
 
+const inputNumberControler = () => {
+    const inputNumberElems = document.querySelectorAll('input[type="number"]');
+    inputNumberElems.forEach((input) => {
+        let value = "";
+        input.addEventListener('input', (event) => {
+            if (isNaN(parseInt(event.data))) {
+                event.target.value = value;
+            }
+            value = event.target.value;    
+        });
+    });
+};
+
 const createCards = (data) =>
     data.vacancies.map((vacancy) => {
         const li = document.createElement('li');
@@ -351,18 +364,23 @@ const init = () => {
 
     try {
         const validationForm = (form) => {
-            const validate = new JustValidate(form, {
+            const validate = new window.JustValidate(form, {
                 successFieldStyle: {
                     color: 'green',
+                    border: '1px solid green',
                 },
                 errorFieldStyle: {
                     color: "red",
+                    border: '1px solid red',
                 },
                 successLabelStyle: {
                     color: 'green',
                 },
                 errorLabelStyle: {
                     color: "red",
+                },
+                tooltip: {
+                    position: "top",
                 },
                 validateBeforeSubmitting: false,
                 focusInvalidField: true,
@@ -427,9 +445,17 @@ const init = () => {
                     errorMessage: 'Заполните описание',
                 },
             ])
-            .addRequiredGroup('#format', 'Выберите формат')
-            .addRequiredGroup('#experience', 'Выберите опыт')
-            .addRequiredGroup('#type', 'Выберите занятость');
+            .addRequiredGroup('#format', 'Выберите формат', {
+                errorFieldCssClass: "radio__input_error",
+            })
+            .addRequiredGroup('#experience', 'Выберите опыт', {
+                errorFieldCssClass: "radio__input_error",
+            })
+            .addRequiredGroup('#type', 'Выберите занятость', {
+                errorFieldCssClass: "radio__input_error",
+            });
+
+            return validate;
         };
 
         const fileControler = () => {
@@ -437,6 +463,14 @@ const init = () => {
             const preview = file.querySelector('.file__preview');
             const input = file.querySelector('.file__input');
 
+            // let myDropzone = new Dropzone(".file__wrap-preview", {
+            //     url: "/file/post",
+            //     acceptedFiles: '.jpg, .png, .jpeg'),
+            //     accept(file) {
+            //         console.log('Файл получен')
+            //     }}
+            // };
+                
             input.addEventListener('change', (event) => {
                 if (event.target.files.length > 0) {
                     const src = URL.createObjectURL(event.target.files[0]);
@@ -451,23 +485,58 @@ const init = () => {
             });
         };
 
+        // const showInValidRadioTitle = () => {
+        //     const employerFieldsetRadioElems = document.querySelectorAll(
+        //         ".employer__fieldset-radio",
+        //         );
+
+        //     employerFieldsetRadioElems.forEach((employerFieldsetRadio) => {
+        //         const employerLegend = employerFieldsetRadio.querySelector(".employer__legend");
+
+        //         const employerRadioElems = employerFieldsetRadio.querySelectorAll(".radio__input");
+
+        //         const isInValid = [...employerRadioElems].some((radio) =>
+        //             radio.classList.contains("radio__input_error"));
+        //         if (isInValid) {
+        //             employerLegend.style.color = "red";
+        //         } else {
+        //             employerLegend.style.color = "";
+        //         }
+        //     });
+        // };
+
         const formControler = () => {
             const form = document.querySelector('.employer__form');
 
-            validationForm(form);
+            const validate = validationForm(form);
 
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
 
-            })
+                if (!validate.isValid) {
+                    document.querySelector(".employer__success").innerHTML = "";    
+                    document.querySelector(".employer__error").innerHTML = "<p>Заполните все поля корректно и ещё раз нажмите кнопку.</p>";
+                        
+                    // showInValidRadioTitle();
+
+                    // form.addEventListener('input', showInValidRadioTitle)
+                    // return;
+                } else {
+                    document.querySelector(".employer__error").innerHTML = "";
+                    document.querySelector(".employer__success").innerHTML = "<p>Всё заполнено корректно. Вакансия отправлена.</p>";        
+                }
+            });
         };
 
         formControler();
         fileControler();
+
     } catch (error) {
-        console.log(error)
+        console.warn(error);
         console.warn('Мы не на странице employer.html');
     }
+
+    inputNumberControler();
 };
 
 init();

@@ -36,8 +36,40 @@
     width: 100%;
 }
 
-.employer__input:placeholder {
+.employer__input::placeholder {
     color: #ccc;
+}
+
+.employer__wrap-input:has(> .just-validate-error-field) .employer__input {
+    border: 1px solid red;
+}
+
+.employer__wrap-input:has(> .just-validate-success-field) .employer__input {
+    border: 1px solid green;
+}
+
+.employer__wrap-input:has(> .just-validate-error-field) .employer__label {
+    color:red;
+}
+
+.employer__wrap-input:has(> .just-validate-success-field) .employer__label {
+    color: green;
+}
+
+.employer__fieldset:has(> .just-validate-error-field) .employer__textarea {
+    border: 1px solid red;
+}
+
+.employer__fieldset:has(> .just-validate-success-field) .employer__textarea {
+    border: 1px solid green;
+}
+
+.employer__fieldset:has(> .just-validate-error-field) .employer__label {
+    color: red;
+}
+
+.employer__fieldset:has(> .just-validate-success-field) .employer__label {
+    color: green;
 }
 
 .employer__textarea {
@@ -49,6 +81,10 @@
     padding: 7px 16px;
 }
 
+.employer__textarea::placeholder {
+    color: #ccc;
+}
+
 .employer__radio-buttons {
     display: grid;
     grid-template-columns: repeat(3, 280px);
@@ -58,8 +94,12 @@
 .employer__fieldset-radio {
     display: flex;
     flex-direction: column;
-
 }
+
+.employer__fieldset-radio:has(> .radio > .radio__input_error) .employer__legend {
+    color:red
+}
+
 .employer__legend {
     margin-bottom: 12px;
 }
@@ -100,16 +140,20 @@
 }
 
 .employer__error {
-    color: #f00;
+    color: red;
 }
 
-.just-validate-error-field {
+.employer__success{
+    color: green;
+}
+
+/* .just-validate-error-field {
     border: 1px solid red;
 }
 
 .just-validate-success-field {
     border: 1px solid green;
-}
+} */
 
 @media (max-width: 1140px) {
     .employer {
