@@ -8,7 +8,8 @@
 
     <link rel="stylesheet" href="index.css">
 
-    <script src="js/choices.min.js" defer></script>
+    <!-- <script src="js/just-validate.min.js" defer></script> -->
+    <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
     <script src="js/script.js" defer></script> 
 </head>
 
@@ -18,8 +19,9 @@
             <a href="index.html">
                 <img class="header__logo" src="img/logo.svg" alt="Логотип WorkSpace">
             </a>
-
-            <a class="header__link" href="index.html#vacancies">Посмотреть вакансии</a>
+            <div class="header__links">
+                <a class="header__link" href="index.html#vacancies">Посмотреть вакансии</a>
+            </div>
         </div>
     </header>
     
@@ -41,7 +43,7 @@
                         </div>
                     </div>
 
-                    <fieldset class="employer__fieldset employer__fieldset_input">
+                    <fieldset class="employer__fieldset employer__fieldset_input" id="input">
                         <div class="employer__wrap-input">
                             <label class="employer__label" for="company">Название компании</label>
                             <input class="employer__input" type="text" id="company" name="company" 
@@ -69,7 +71,7 @@
                         </div>
                     </fieldset>
 
-                    <fieldset class="employer__fieldset">
+                    <fieldset class="employer__fieldset" id="descr">
                         <label class="employer__label" for="description">Описание вакансии</label>
                         <textarea class="employer__textarea" name="description" 
                             id="description" 
@@ -77,7 +79,7 @@
                     </fieldset>
 
                     <div class="employer__radio-buttons">
-                        <fieldset class="employer__fieldset-radio">
+                        <fieldset class="employer__fieldset-radio" id="format">
                             <legend class="employer__legend">Формат</legend>
 
                             <label class="employer__label-radio radio">
@@ -93,7 +95,7 @@
                                     value="Гибкий">Гибкий
                             </label>
                         </fieldset>
-                        <fieldset class="employer__fieldset-radio">
+                        <fieldset class="employer__fieldset-radio" id="experience">
                             <legend class="employer__legend">Опыт работы</legend>
 
                             <label class="employer__label-radio radio">
@@ -113,7 +115,7 @@
                                     name="experience" value="От 3-х лет">От 3-х лет
                             </label>
                         </fieldset>
-                        <fieldset class="employer__fieldset-radio">
+                        <fieldset class="employer__fieldset-radio" id="type">
                             <legend class="employer__legend">Занятость</legend>
 
                             <label class="employer__label-radio radio">
@@ -134,7 +136,7 @@
                     <div class="employer__wrap-submit">
                         <button class="employer__submit" type="submit">Добавить вакансию</button>
                         <div class="employer__error">
-                            <p>Ошибка. Заполните все поля</p>
+                            
                         </div>
                     </div>
                 </form>

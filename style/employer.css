@@ -103,6 +103,14 @@
     color: #f00;
 }
 
+.just-validate-error-field {
+    border: 1px solid red;
+}
+
+.just-validate-success-field {
+    border: 1px solid green;
+}
+
 @media (max-width: 1140px) {
     .employer {
         padding: 40px 0;

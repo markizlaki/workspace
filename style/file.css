@@ -11,6 +11,11 @@
     margin-bottom: 12px;
 }
 
+.file_active .file__wrap-preview {
+    background-color: transparent;
+    min-width: auto;
+}
+
 .file__wrap-preview_active {
     min-width: auto;
 }
