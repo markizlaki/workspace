@@ -34,14 +34,12 @@
     border: 0;
     height: 32px;
     width: 100%;
+    outline: 0;
+    border: 1px solid transparent;
 }
 
 .employer__input::placeholder {
     color: #ccc;
-}
-
-.employer__wrap-input:has(> .just-validate-error-field) .employer__input {
-    border: 1px solid red;
 }
 
 .employer__wrap-input:has(> .just-validate-success-field) .employer__input {
@@ -54,10 +52,6 @@
 
 .employer__wrap-input:has(> .just-validate-success-field) .employer__label {
     color: green;
-}
-
-.employer__fieldset:has(> .just-validate-error-field) .employer__textarea {
-    border: 1px solid red;
 }
 
 .employer__fieldset:has(> .just-validate-success-field) .employer__textarea {
@@ -79,10 +73,22 @@
     resize: vertical;
     border: 0;
     padding: 7px 16px;
+    outline: 0;
+    border: 1px solid transparent;
 }
 
 .employer__textarea::placeholder {
     color: #ccc;
+}
+
+.employer__input.just-validate-error-field,
+.employer__textarea.just-validate-error-field {
+    border-color: red;
+}
+
+.employer__input:focus-visible,
+.employer__textarea:focus-visible {
+    border-color: blue;
 }
 
 .employer__radio-buttons {

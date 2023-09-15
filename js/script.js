@@ -1,4 +1,5 @@
-const API_URL = "https://workspace-methed.vercel.app/";
+// const API_URL = "https://workspace-methed.vercel.app/";
+const API_URL = "https://rattle-valuable-fender.glitch.me/";
 const LOCATION_URL = "api/locations";
 const VACANCY_URL = "api/vacancy";
 const BOT_TOKEN = '6440412139:AAEyLd4bYckjF6rgVun-57v8-qoJncJQmpA';
@@ -510,20 +511,40 @@ const init = () => {
 
             const validate = validationForm(form);
 
-            form.addEventListener('submit', (event) => {
+            form.addEventListener('submit', async (event) => {
                 event.preventDefault();
 
                 if (!validate.isValid) {
                     document.querySelector(".employer__success").innerHTML = "";    
                     document.querySelector(".employer__error").innerHTML = "<p>Заполните все поля корректно и ещё раз нажмите кнопку.</p>";
+                    return;
                         
                     // showInValidRadioTitle();
 
                     // form.addEventListener('input', showInValidRadioTitle)
                     // return;
                 } else {
-                    document.querySelector(".employer__error").innerHTML = "";
-                    document.querySelector(".employer__success").innerHTML = "<p>Всё заполнено корректно. Вакансия отправлена.</p>";        
+                    try {
+                        
+    
+                        const formData = new FormData(form);
+
+                        document.querySelector(".employer__error").innerHTML = "";
+                        document.querySelector(".employer__success").innerHTML = "<p>Всё заполнено корректно. Вакансия отправляется...</p>";
+    
+                        const response = await fetch(`${API_URL}${VACANCY_URL}`, {
+                            method: 'POST',
+                            body:formData,
+                        })
+    
+                        if (response.ok) {
+                            document.querySelector(".employer__success").innerHTML = "<p>Вакансия отправлена.</p>";
+                            window.location.href = 'index.html'
+                        }
+                    } catch (error) {
+                        document.querySelector(".employer__success").innerHTML = "<p>Произошла ошибка при отправке. Попробуйте позже.</p>";
+                        console.error(error);
+                    }
                 }
             });
         };
